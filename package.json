@@ -1,0 +1,26 @@
+{
+  "name": "geolocationapi",
+  "version": "1.0.0",
+  "description": "An API challenge to get into a new awesome job.",
+  "main": "index.js",
+  "scripts": {
+    "test": "eccho \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose.git"
+  },
+  "keywords": [
+    "restful",
+    "express",
+    "mongoose",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Thiago Monteiro Barbosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose/issues"
+  },
+  "homepage": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose#readme"
+}
