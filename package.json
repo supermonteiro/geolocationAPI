@@ -4,7 +4,8 @@
   "description": "An API challenge to get into a new awesome job.",
   "main": "index.js",
   "scripts": {
-    "test": "eccho \\\"Error: no test specified\\\" && exit 1"
+    "test": "eccho \\\"Error: no test specified\\\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose/issues"
   },
-  "homepage": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose#readme"
+  "homepage": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.15.4"
+  }
 }
