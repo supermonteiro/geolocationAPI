@@ -2,12 +2,15 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Task = require('./api/models/geolocationAPIModel'),
+  //Location = require('./api/models/LocationsModel'),
+  //Favorite = require('./api/models/FavoritesModel'),
   bodyParser = require('body-parser');
-  
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/db'); 
 
+var Location = require("./api/models/LocationsModel");// change this
+var Favorite = require("./api/models/FavoritesModel");// change this
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/db');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,3 +21,7 @@ routes(app);
 app.listen(port);
 
 console.log('geolocation RESTful API server started on: ' + port);
+
+app.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
+});

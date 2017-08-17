@@ -2,55 +2,69 @@
 
 
 var mongoose = require('mongoose'),
-  Task = mongoose.model('Tasks');
+  //Task = mongoose.model('Tasks'),
+  Location = mongoose.model('Locations'),
+  Favorite = mongoose.model('Favorites');
 
-exports.list_all_tasks = function(req, res) {
-  Task.find({}, function(err, task) {
+exports.list_all_locations = function(req, res) {
+  Location.find({}, function(err, location) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(location);
   });
 };
 
-
-
-
-exports.create_a_task = function(req, res) {
-  var new_task = new Task(req.body);
-  new_task.save(function(err, task) {
+exports.post_a_location = function(req, res) {
+  var new_location = new Location(req.body);
+  new_location.save(function(err, location) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(location);
   });
 };
 
-
-exports.read_a_task = function(req, res) {
-  Task.findById(req.params.taskId, function(err, task) {
+exports.read_a_location = function(req, res) {  
+    Location.find({"locationName": req.params.location}, function(err, location) {
     if (err)
       res.send(err);
-    res.json(task);
+    else if (location =='')
+      res.json({ message: 'Location not found.' });
+    else
+      res.json(location);    
   });
 };
 
-
-exports.update_a_task = function(req, res) {
-  Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
+exports.update_a_location = function(req, res) {
+  Location.findOneAndUpdate({_id: req.params.locationId}, req.body, {new: true}, function(err, location) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(location);
   });
 };
 
-
-exports.delete_a_task = function(req, res) {
-
-
-  Task.remove({
-    _id: req.params.taskId
-  }, function(err, task) {
+exports.list_all_favorites = function(req, res) {
+  Favorite.find({}, function(err, favorite) {
     if (err)
       res.send(err);
-    res.json({ message: 'Task successfully deleted' });
+    res.json(favorite);
+  });
+};
+
+exports.post_a_favorite = function(req, res) {
+  var new_favorite = new Favorite(req.body);
+  new_favorite.save(function(err, favorite) {
+    if (err)
+      res.send(err);
+    res.json(favorite);
+  });
+};
+
+exports.delete_a_favorite = function(req, res) {
+  Favorite.remove({
+    _id: req.params.favoriteId
+  }, function(err, location) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'Favorite successfully deleted.' });
   });
 };

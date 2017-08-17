@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose.git"
+    "url": "git+https://github.com/supermonteiro/geolocationapi.git"
   },
   "keywords": [
     "restful",
@@ -21,9 +21,9 @@
   "author": "Thiago Monteiro Barbosa",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose/issues"
+    "url": "https://github.com/supermonteiro/geolocationapi/issues"
   },
-  "homepage": "https://github.com/supermonteiro/restful-api-node-mongodb-express-mongoose#readme",
+  "homepage": "https://github.com/supermonteiro/geolocationapi#readme",
   "devDependencies": {
     "nodemon": "^1.11.0"
   },
