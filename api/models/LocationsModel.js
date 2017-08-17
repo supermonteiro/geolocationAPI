@@ -12,6 +12,10 @@ var LocationSchema = new Schema({
     type: String,
     Required: 'Enter the description of the location.'
   },
+  photos: { 
+    data: Buffer, 
+    contentType: String 
+  },
   zipCode: {
     type: String,
     Required: 'Enter the zip code of the location.'

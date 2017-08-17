@@ -1,8 +1,7 @@
 'use strict';
 
 
-var mongoose = require('mongoose'),
-  //Task = mongoose.model('Tasks'),
+var mongoose = require('mongoose'),  
   Location = mongoose.model('Locations'),
   Favorite = mongoose.model('Favorites');
 
@@ -35,7 +34,7 @@ exports.read_a_location = function(req, res) {
 };
 
 exports.update_a_location = function(req, res) {
-  Location.findOneAndUpdate({_id: req.params.locationId}, req.body, {new: true}, function(err, location) {
+  Location.findOneAndUpdate({"locationName": req.params.location}, req.body, {new: true}, function(err, location) {
     if (err)
       res.send(err);
     res.json(location);
@@ -61,7 +60,7 @@ exports.post_a_favorite = function(req, res) {
 
 exports.delete_a_favorite = function(req, res) {
   Favorite.remove({
-    _id: req.params.favoriteId
+    _id: req.params.favorite
   }, function(err, location) {
     if (err)
       res.send(err);

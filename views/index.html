@@ -1,0 +1,201 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="geolocation">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Geolocation App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->    
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    
+    <script>
+    	var geolocation = angular.module('geolocation', []);
+
+		function mainController($scope, $http) {
+			$scope.formData = {};
+
+			// when landing on the page, get all todos and show them
+			$http.get('/api/places')
+			    .success(function(data) {
+			        $scope.locations = data;
+			        console.log(data);
+			    })
+			    .error(function(data) {
+			        console.log('Error: ' + data);
+			    });
+
+			// when submitting the add form, send the text to the node API
+			$scope.createLocation = function() {
+			    $http.post('/api/places/:location', $scope.formData)
+			        .success(function(data) {
+			            $scope.formData = {}; // clear the form so our user is ready to enter another
+			            $scope.locations = data;
+			            console.log(data);
+			        })
+			        .error(function(data) {
+			            console.log('Error: ' + data);
+			        });
+			};
+
+			// when submitting the add form, send the text to the node API
+			$scope.createFavorite = function() {
+			    $http.post('/api/favorite', $scope.formData)
+			        .success(function(data) {
+			            $scope.formData = {}; // clear the form so our user is ready to enter another
+			            $scope.favorites = data;
+			            console.log(data);
+			        })
+			        .error(function(data) {
+			            console.log('Error: ' + data);
+			        });
+			};
+			// when submitting the add form, send the text to the node API
+			$scope.deleteFavorite = function() {
+			    $http.delete('/api/favorite/'+$scope.formData.favoriteID, $scope.formData)
+			        .success(function(data) {
+			            $scope.formData = {}; // clear the form so our user is ready to enter another
+			            $scope.favorites = data;
+			            console.log(data);
+			        })
+			        .error(function(data) {
+			            console.log('Error: ' + data);
+			        });
+			};   
+		}
+
+    </script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL Locations -->
+<body ng-controller="mainController">
+    <div class="container">
+
+        <!-- HEADER AND Location COUNT -->
+        <div class="jumbotron text-center">
+            <h1>Geolocation App <span class="label label-info">{{ locations.length }}</span></h1>
+        </div>
+
+        <!-- TODO LIST -->
+        <div id="todo-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <!-- LOOP OVER THE TODOS IN $scope.todos -->
+                <div class="checkbox" ng-repeat="location in locations">
+                    <label>
+                         {{ location.locationName }} {{ location.country }} {{ location.state }} {{ location.city }}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FORM TO CREATE LOCATIONS -->
+        <div class="panel-group">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse1">New Location</a>
+		        </h4>
+		      </div>
+		      <div id="collapse1" class="panel-collapse collapse">
+		        <div id="location-form" >            
+                <form class="form-inline">
+                    <div class="form-group">                                             
+                        <label class="col-form-label">Location Name</label> <input type="text" class="form-control text-center" ng-model="formData.locationName"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Description</label> <input type="text" class="form-control text-center" ng-model="formData.description"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Zip Code</label> <input type="text" class="form-control text-center" ng-model="formData.zipCode"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Country</label> <input type="text" class="form-control text-center" ng-model="formData.country"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Province</label> <input type="text" class="form-control text-center" ng-model="formData.province"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>City</label> <input type="text" class="form-control text-center" ng-model="formData.city"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Address</label> <input type="text" class="form-control text-center" ng-model="formData.address"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Latitude</label> <input type="text" class="form-control text-center" ng-model="formData.latitude"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>Longitude</label> <input type="text" class="form-control text-center" ng-model="formData.longitude"><br>
+                    </div>
+                    <!-- createLocation() WILL CREATE NEW Location -->
+                    <div class="form-group"><button type="submit" class="btn btn-primary btn-lg" ng-click="createLocation()">Add Location</button></div>                    
+                </form>            
+        		</div>
+		      </div>
+		    </div>
+  		</div>
+
+  		<!-- FORM TO CREATE FAVORITES -->
+        <div class="panel-group">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse2">New Favorite</a>
+		        </h4>
+		      </div>
+		      <div id="collapse2" class="panel-collapse collapse">
+		        <div id="location-form" >            
+                <form class="form-inline">
+                    <div class="form-group">                                             
+                        <label class="col-form-label">Location Id</label> <input type="text" class="form-control text-center" ng-model="formData.locationID"><br>
+                    </div>
+                    <div class="form-group">                        
+                        <label>User Id</label> <input type="text" class="form-control text-center" ng-model="formData.userID"><br>
+                    </div>
+                    <!-- createFavorite() WILL CREATE NEW FAVORITE -->
+                    <div class="form-group"><button type="submit" class="btn btn-primary btn-lg" ng-click="createFavorite()">Add Favorite</button></div>                    
+                </form>            
+        		</div>
+		      </div>
+		    </div>
+  		</div>
+  		<!-- FORM TO DELETE FAVORITE -->
+        <div class="panel-group">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" href="#collapse3">Delete Favorite</a>
+		        </h4>
+		      </div>
+		      <div id="collapse3" class="panel-collapse collapse">
+		        <div id="location-form" >            
+                <form class="form-inline">
+                    <div class="form-group">                                             
+                        <label class="col-form-label">Favorite ID</label> <input type="text" class="form-control text-center" ng-model="formData.favoriteID"><br>
+                    </div>
+                    <!-- deleteFavorite() WILL DELETE FAVORITE -->
+                    <div class="form-group"><button type="submit" class="btn btn-primary btn-lg" ng-click="deleteFavorite()">Delete Favorite</button></div>                    
+                </form>            
+        		</div>
+		      </div>
+		    </div>
+  		</div>                
+
+    </div>
+
+</body>
+</html>
