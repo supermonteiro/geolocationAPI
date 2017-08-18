@@ -28,6 +28,7 @@
 
 		function mainController($scope, $http) {
 			$scope.formData = {};
+			$scope.values=[];
 
 			// when landing on the page, get all todos and show them
 			$http.get('/api/places')
@@ -41,9 +42,11 @@
 
 			// when submitting the add form, send the text to the node API
 			$scope.createLocation = function() {
+				//$scope.formData.geolocation.coordinates = new Array(2);
+				$scope.formData.geolocation = { coordinates: $scope.values }
 			    $http.post('/api/places/:location', $scope.formData)
 			        .success(function(data) {
-			            $scope.formData = {}; // clear the form so our user is ready to enter another
+			            $scope.formData = {}; // clear the form so our user is ready to enter another			            
 			            $scope.locations = data;
 			            console.log(data);
 			        })
@@ -136,11 +139,9 @@
                         <label>Address</label> <input type="text" class="form-control text-center" ng-model="formData.address"><br>
                     </div>
                     <div class="form-group">                        
-                        <label>Latitude</label> <input type="text" class="form-control text-center" ng-model="formData.latitude"><br>
-                    </div>
-                    <div class="form-group">                        
-                        <label>Longitude</label> <input type="text" class="form-control text-center" ng-model="formData.longitude"><br>
-                    </div>
+                        <label>Geolocation</label><input ng-model='values[0]' type='text'><input ng-model='values[1]' type='text' ><br>
+                    </div>                                          
+                                        
                     <!-- createLocation() WILL CREATE NEW Location -->
                     <div class="form-group"><button type="submit" class="btn btn-primary btn-lg" ng-click="createLocation()">Add Location</button></div>                    
                 </form>            

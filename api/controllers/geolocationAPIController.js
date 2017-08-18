@@ -13,8 +13,8 @@ exports.list_all_locations = function(req, res) {
   });
 };
 
-exports.post_a_location = function(req, res) {
-  var new_location = new Location(req.body);
+exports.post_a_location = function(req, res) {  
+  var new_location = new Location(req.body);  
   new_location.save(function(err, location) {
     if (err)
       res.send(err);

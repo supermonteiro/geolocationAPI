@@ -12,6 +12,10 @@ var LocationSchema = new Schema({
     type: String,
     Required: 'Enter the description of the location.'
   },
+  geolocation: { 
+    type: { type: String, default:"Point" }, 
+    coordinates: [Number], 
+  },
   photos: { 
     data: Buffer, 
     contentType: String 
