@@ -23,6 +23,7 @@ app.get('/', function(req, res) {
 });
 
 app.listen(port);
+app.use(express.static(__dirname + '/public'));//allows loading other scripts
 
 console.log('geolocation RESTful API server started on: ' + port);
 

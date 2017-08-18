@@ -3,7 +3,15 @@
 
 var mongoose = require('mongoose'),  
   Location = mongoose.model('Locations'),
-  Favorite = mongoose.model('Favorites');
+  Favorite = mongoose.model('Favorites'),
+  lat, lon = 0;
+
+function render(pos) {
+  lat = pos.coords.latitude;
+  lon = pos.coords.longitude;
+  console.log(lat +","+ lon);
+};
+
 
 exports.list_all_locations = function(req, res) {
   Location.find({}, function(err, location) {
@@ -12,6 +20,50 @@ exports.list_all_locations = function(req, res) {
     res.json(location);
   });
 };
+
+exports.find_all_locations_near = function(req, res) {
+  const $minDistance = req.params.minDistance;
+  const $maxDistance = req.params.maxDistance;
+  if ($minDistance > 0) 
+  {
+    Location.find({
+      geolocation: 
+      { 
+          $near: 
+          {
+              $geometry: 
+              {
+                  type: "Point",
+                  coordinates: [lat, lon]
+              },
+              $minDistance,
+              $maxDistance
+          }
+      }
+    }), function(err, location) {
+      if (err) {
+        //console.log(err);
+        res.send(err);
+      }
+      else if (location =='')
+        //res.json({ message: 'No location was found.' });
+        res.json({ message: 'No location was found.' });
+      else
+      {
+        res.json(location);
+        res.json({ message: 'The end.' });
+      }          
+    };
+  } else 
+  {
+    Location.find({}, function(err, location) {
+      if (err)
+        res.send(err);
+      res.json(location);
+      res.json(req.params.minDistance);
+    });
+  }  
+}
 
 exports.post_a_location = function(req, res) {  
   var new_location = new Location(req.body);  

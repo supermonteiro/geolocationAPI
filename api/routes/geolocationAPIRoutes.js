@@ -7,12 +7,13 @@ module.exports = function(app) {
   
   app.route('/')  
   	router.get('/', function(req, res, next) {
-  	res.render('index', { title: 'ngTodo' });
+  	res.render('index', { title: 'geolocation' });
   });  
 
   // geolocation Routes
   app.route('/api/places')
-    .get(geolocation.list_all_locations);    
+    //.get(geolocation.find_all_locations_near);
+    .get(geolocation.list_all_locations);        
 
   app.route('/api/places/:location')
     .get(geolocation.read_a_location)

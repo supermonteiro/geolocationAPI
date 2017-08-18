@@ -6,11 +6,11 @@ var Schema = mongoose.Schema;
 var LocationSchema = new Schema({
   locationName: {
     type: String,
-    Required: 'Enter the name of the location.'
+    required: true
   },
   description: {
     type: String,
-    Required: 'Enter the description of the location.'
+    Required: true
   },
   geolocation: { 
     type: { type: String, default:"Point" }, 
@@ -22,23 +22,23 @@ var LocationSchema = new Schema({
   },
   zipCode: {
     type: String,
-    Required: 'Enter the zip code of the location.'
+    Required: true
   },
   province: {
     type: String,
-    Required: 'Enter the province of the location.'
+    Required: true
   },
   country: {
     type: String,
-    Required: 'Enter the country of the location.'
+    Required: true
   },
   city: {
     type: String,
-    Required: 'Enter the city of the location.'
+    Required: true
   },
   address: {
     type: String,
-    Required: 'Enter the address of the location.'
+    Required: true
   },
   createdAt: {
     type: Date,

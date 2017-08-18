@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var FavoriteSchema = new Schema({
   locationID: {
     type: String,
-    Required: 'Enter the location ID of the favorite.'
+    Required: true
   },
   createdAt: {
     type: Date,
@@ -13,7 +13,7 @@ var FavoriteSchema = new Schema({
   },
   userID: {
     type: Number,
-    Required: 'Enter the user ID of the favorite.'
+    Required: true
   }
 });
 
