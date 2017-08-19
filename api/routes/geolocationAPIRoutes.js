@@ -12,8 +12,8 @@ module.exports = function(app) {
 
   // geolocation Routes
   app.route('/api/places')
-    //.get(geolocation.find_all_locations_near);
-    .get(geolocation.list_all_locations);        
+    .get(geolocation.find_all_locations_near);
+    //.get(geolocation.list_all_locations);        
 
   app.route('/api/places/:location')
     .get(geolocation.read_a_location)

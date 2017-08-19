@@ -22,8 +22,8 @@ exports.list_all_locations = function(req, res) {
 };
 
 exports.find_all_locations_near = function(req, res) {
-  const $minDistance = req.params.minDistance;
-  const $maxDistance = req.params.maxDistance;
+  const $minDistance = req.query.minDistance;
+  const $maxDistance = req.query.maxDistance;
   if ($minDistance > 0) 
   {
     Location.find({
