@@ -61,7 +61,9 @@ function mainController($scope, Upload, $http) {
     $scope.searchLocations = function () {        
         const url = withQuery('api/places', {
             minDistance: $scope.minDistance,
-            maxDistance: $scope.maxDistance
+            maxDistance: $scope.maxDistance,
+            lat: lat,
+            lon: lon
         });
     /*
     if (minDistance == null)

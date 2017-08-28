@@ -1,17 +1,11 @@
 'use strict';
 
 
-var mongoose = require('mongoose'),  
-  Location = mongoose.model('Locations'),
-  Favorite = mongoose.model('Favorites'),
-  lat, lon = 0;
-
-function render(pos) {
-  lat = pos.coords.latitude;
-  lon = pos.coords.longitude;
-  console.log(lat +","+ lon);
-};
-
+var mongoose = require('mongoose'),
+    Location = mongoose.model('Locations'),
+    Favorite = mongoose.model('Favorites');
+    var lat = 0;
+    var lon = 0;
 
 exports.list_all_locations = function(req, res) {
   Location.find({}, function(err, location) {
@@ -24,6 +18,8 @@ exports.list_all_locations = function(req, res) {
 exports.find_all_locations_near = function(req, res) {
   const $minDistance = req.query.minDistance;
   const $maxDistance = req.query.maxDistance;
+  lat = req.query.lat;
+  lon = req.query.lon;  
   if ($minDistance > 0) 
   {
     /*Location.find({
