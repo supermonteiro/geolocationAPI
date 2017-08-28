@@ -13,7 +13,7 @@ var LocationSchema = new Schema({
     Required: true
   },
   geolocation: { 
-    type: { type: String, default:"Point" }, 
+    type: { type: mongoose.Schema.Types.Point, default:"Point" }, 
     coordinates: [Number], 
   },
   photos: { 

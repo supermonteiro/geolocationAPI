@@ -1,4 +1,4 @@
-var geolocation = angular.module('geolocation', []);        
+var geolocation = angular.module('geolocation', ['ngFileUpload']);        
 navigator.geolocation.watchPosition(render);
 var lat, lon = 0;
 function render(pos) {
@@ -18,7 +18,7 @@ return query.length
     : url;
 };       
 
-function mainController($scope, $http) {
+function mainController($scope, Upload, $http) {
     $scope.formData = {};
     $scope.values=[];
     $scope.sortType     = 'locationName'; // set the default sort type
@@ -35,19 +35,47 @@ function mainController($scope, $http) {
             console.log('Error: ' + data);
     });
     
-    $scope.searchLocations = function () {        
-    const url = withQuery('api/places', {
-        minDistance: $scope.minDistance,
-        maxDistance: $scope.maxDistance
-    });
+    $scope.uploadFiles = function (files) {
+        $scope.files = files;
+        if (files && files.length) {
+            Upload.upload({
+                url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+                data: {
+                    files: files
+                }
+            }).then(function (response) {
+                $timeout(function () {
+                    $scope.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0) {
+                    $scope.errorMsg = response.status + ': ' + response.data;
+                }
+            }, function (evt) {
+                $scope.progress = 
+                    Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+        }
+    };    
 
-    $http.get(url)
-        .success(function (response) {
-            $scope.searchLocations = response.data;            
-        })
-        .error(function (reason) {
-            console.log('Error: ' + reason);
+    $scope.searchLocations = function () {        
+        const url = withQuery('api/places', {
+            minDistance: $scope.minDistance,
+            maxDistance: $scope.maxDistance
         });
+    /*
+    if (minDistance == null)
+        minDistance = 0;
+    if (maxDistance == null)
+        maxDistance = 9999999999999999;
+    */
+        $http.get(url)
+            .success(function (response) {
+                $scope.searchLocations = response.data;            
+            })
+            .error(function (reason) {
+                console.log('Error: ' + reason);
+            });
     };
     
     $scope.createLocation = function() {                

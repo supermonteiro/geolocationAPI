@@ -17,7 +17,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>  	
+  	<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
+  	<script src="ng-file-upload.js"></script>  		
   	<script type="text/javascript" src="core.js"></script>
     <style>
         html                    { overflow-y:scroll; }
@@ -33,7 +34,7 @@
 
         <!-- HEADER AND Location COUNT -->
         <div class="jumbotron text-center">
-            <h1>Geolocation App <span class="label label-info">{{ locations.length }}</span></h1>
+            <h1>Geolocation App</h1>
         </div>
 
         <!-- LOCATIONS LIST -->
@@ -142,8 +143,10 @@
                     <div class="form-group">                        
                         <label>Geolocation</label><input ng-model='values[0]' type='text'><input ng-model='values[1]' type='text' ><br>
                     </div>
-                    <!-- IMAGE UPLOAD-->                                           
-                                        
+                    <!-- IMAGE UPLOAD-->
+                    <div class="form-group">                        
+                        <label>Photos</label><button ngf-select="uploadFiles($files)" multiple accept="image/*">Select Photos</button> <br>
+                    </div>                                                                                 
                     <!-- createLocation() WILL CREATE NEW Location -->
                     <div class="form-group"><button type="submit" class="btn btn-primary btn-lg" ng-click="createLocation()">Add Location</button></div>                    
                 </form>            

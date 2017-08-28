@@ -1,0 +1,3 @@
+D:\Workspace\geolocationAPI\obj\Debug\geolocationAPI.njsprojResolveAssemblyReference.cache
+D:\Workspace\geolocationAPI\obj\Debug\geolocationAPI.njsproj.CoreCompileInputs.cache
+D:\Workspace\geolocationAPI\bin\Microsoft.NodejsTools.WebRole.dll

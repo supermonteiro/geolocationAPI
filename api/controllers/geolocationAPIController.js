@@ -26,7 +26,7 @@ exports.find_all_locations_near = function(req, res) {
   const $maxDistance = req.query.maxDistance;
   if ($minDistance > 0) 
   {
-    Location.find({
+    /*Location.find({
       geolocation: 
       { 
           $near: 
@@ -39,8 +39,36 @@ exports.find_all_locations_near = function(req, res) {
               $minDistance,
               $maxDistance
           }
+      }*/
+      /*
+    Location.aggregate([
+    {
+      $geoNear: {
+        near: { type: "Point", coordinates: [ lat , lon ] },
+        distanceField: "dist.calculated",
+        maxDistance: $maxDistance,
+        minDistance: $minDistance,
+        query: { type: "public" },
+        includeLocs: "dist.location",
+        spherical: true
       }
-    }), function(err, location) {
+    }
+])
+
+      */Location.aggregate([
+          {
+              $geoNear: {
+                  near: { type: "Point", coordinates: [lat, lon] },
+                  distanceField: "dist.calculated",
+                  minDistance: $minDistance,
+                  maxDistance: $maxDistance,
+                  query: { type: "public" },
+                  includeLocs: "dist.location",
+                  num: 5,
+                  spherical: true
+              }
+          }
+      ]), function(err, location) {
       if (err) {
         //console.log(err);
         res.send(err);

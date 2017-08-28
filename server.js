@@ -1,13 +1,11 @@
 var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
-  mongoose = require('mongoose'),
-  //Location = require('./api/models/LocationsModel'),
-  //Favorite = require('./api/models/FavoritesModel'),
+  mongoose = require('mongoose'),  
   bodyParser = require('body-parser');
 
-var Location = require("./api/models/LocationsModel");// change this
-var Favorite = require("./api/models/FavoritesModel");// change this
+var Location = require("./api/models/LocationsModel");
+var Favorite = require("./api/models/FavoritesModel");
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/db');
