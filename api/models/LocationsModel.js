@@ -16,7 +16,8 @@ var LocationSchema = new Schema({
     type: { type: mongoose.Schema.Types.Point, default:"Point" }, 
     coordinates: [Number], 
   },
-  photos: { 
+  photos: {
+    fileName: String,  
     data: Buffer, 
     contentType: String 
   },

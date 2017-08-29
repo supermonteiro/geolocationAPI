@@ -65,12 +65,7 @@ function mainController($scope, Upload, $http) {
             lat: lat,
             lon: lon
         });
-    /*
-    if (minDistance == null)
-        minDistance = 0;
-    if (maxDistance == null)
-        maxDistance = 9999999999999999;
-    */
+
         $http.get(url)
             .success(function (response) {
                 $scope.searchLocations = response.data;            
